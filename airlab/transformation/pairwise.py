@@ -133,16 +133,16 @@ class RigidTransformation(_Transformation):
         self.register_buffer("_grid", grid)
 
         # compute the initial center of mass of the moving image
-        intensity_sum = th.sum(moving_image.image)
+        intensity_sum = th.sum(moving_image.image, dtype=th.float)
         print(" ============ ")
         print("intensity_sum: {}".format(str(intensity_sum)))
         print(" ============ ")
-        print("numerator x: {}".format(th.sum(moving_image.image.squeeze() * self._grid[..., 0])))
-        print("numerator y: {}".format(th.sum(moving_image.image.squeeze() * self._grid[..., 1])))
+        print("numerator x: {}".format(th.sum(moving_image.image.squeeze() * self._grid[..., 0], dtype=th.float)))
+        print("numerator y: {}".format(th.sum(moving_image.image.squeeze() * self._grid[..., 1], dtype=th.float)))
         print(" ============ ")
         
-        self._center_mass_x = th.sum(moving_image.image.squeeze() * self._grid[..., 0]) / intensity_sum
-        self._center_mass_y = th.sum(moving_image.image.squeeze() * self._grid[..., 1]) / intensity_sum
+        self._center_mass_x = th.sum(moving_image.image.squeeze() * self._grid[..., 0], dtype=th.float) / intensity_sum
+        self._center_mass_y = th.sum(moving_image.image.squeeze() * self._grid[..., 1], dtype=th.float) / intensity_sum
         
         print("centre mass x: {}".format(self._center_mass_x))
         print("centre mass y: {}".format(self._center_mass_y))
